@@ -13,6 +13,24 @@
         &zip_xy_scaler 3 5
         &auto_mouse_layer 3 1000
     >;
+
+    /*
+     * Hold L on the MOUSE layer to get here. Trackball motion becomes scroll
+     * wheel instead of pointer movement, like holding a middle mouse button.
+     * The xy transform runs first so scrolling starts from corrected motion.
+     * zip_scroll_scaler is the knob if it scrolls too fast or too slow, and
+     * dropping the Y_INVERT below flips scroll direction.
+     */
+    scroll: scroll {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
+            &auto_mouse_layer 3 1000
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_scaler 1 8
+            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
+        >;
+    };
 };
 
 / {
