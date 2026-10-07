@@ -50,12 +50,12 @@
         zephyr,axis-y = <INPUT_REL_Y>;
 
         /*
-         * Without force-awake the sensor downshifts into rest sampling after
-         * inactivity and has to ramp back up on the next motion, which reads
-         * as lag that comes and goes. Costs sensor idle power to keep it in
-         * run mode; drop this line to trade responsiveness back for battery.
+         * force-awake was tried here for pointer lag and did not fix it; the
+         * actual cause was the BLE mouse report queue backing up. Left off so
+         * the sensor can rest and save power. Re-add if lag that *ramps* on the
+         * first motion after a pause ever shows up, which is the symptom it
+         * genuinely addresses.
          */
-        force-awake;
 
         /* Datasheet tracking algorithm, better across varied surfaces. */
         smart-mode;
