@@ -25,7 +25,11 @@ jobs:
       with: { python-version: "3.x" }
 
     - name: OS deps
-      run: sudo apt-get update && sudo apt-get install -y jq
+      # jq ships on the GitHub Ubuntu runners, so only reach for apt if it is
+      # genuinely missing. apt-get update hung here for 20+ minutes on two
+      # consecutive runs and stalled the whole build.
+      timeout-minutes: 3
+      run: command -v jq >/dev/null || { sudo apt-get update && sudo apt-get install -y jq; }
 
     # - name: Generate extra keymaps
     #   run: |
