@@ -26,6 +26,14 @@
         input-processors = <
             &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
             &auto_mouse_layer 3 1000
+            /*
+             * Deliberate overshoot. Three rounds of tuning zip_scroll_scaler
+             * alone produced no perceptible change, so cut the motion down
+             * before the mapper as well: 16x here times 16x below is ~256x.
+             * If scrolling is STILL fast after this, the chain is not running
+             * and the numbers are irrelevant, which is the thing worth knowing.
+             */
+            &zip_xy_scaler 1 16
             &zip_xy_to_scroll_mapper
             &zip_scroll_scaler 1 16
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
