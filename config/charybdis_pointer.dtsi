@@ -32,7 +32,7 @@
              * effect across several attempts; scaling the motion before it
              * becomes wheel events does. Larger divisor means slower scroll.
              */
-            &zip_xy_scaler 1 6
+            &zip_xy_scaler 1 15
             &zip_xy_to_scroll_mapper
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
         >;
