@@ -49,6 +49,16 @@
         zephyr,axis-x = <INPUT_REL_X>;
         zephyr,axis-y = <INPUT_REL_Y>;
 
+        /*
+         * Without force-awake the sensor downshifts into rest sampling after
+         * inactivity and has to ramp back up on the next motion, which reads
+         * as lag that comes and goes. Costs sensor idle power to keep it in
+         * run mode; drop this line to trade responsiveness back for battery.
+         */
+        force-awake;
+
+        /* Datasheet tracking algorithm, better across varied surfaces. */
+        smart-mode;
     };
 };
 
