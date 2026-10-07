@@ -40,7 +40,7 @@ jobs:
 
     - id: make-groups
       run: |
-        echo "groups=$(jq -c 'map({keymap,format,name,board,shield_dir})' build.json)" >>"$GITHUB_OUTPUT"
+        echo "groups=$(jq -c 'map({keymap,format,name,board})' build.json)" >>"$GITHUB_OUTPUT"
         echo "⚙️ Build Matrix Created"
         cat build.json | jq .
 
@@ -115,7 +115,7 @@ jobs:
       run: |
         ZMK_SHIELDS_DIR="$GITHUB_WORKSPACE/zmk/app/boards/shields"
         mkdir -p "$ZMK_SHIELDS_DIR"
-        cp -r "boards/shields/${{ matrix.combo.shield_dir }}" "$ZMK_SHIELDS_DIR/"
+        cp -r "boards/shields/charybdis_${{ matrix.combo.format }}" "$ZMK_SHIELDS_DIR/"
         for d in "$ZMK_SHIELDS_DIR"/*; do
           for f in charybdis-layouts.dtsi charybdis_pmw3610.dtsi charybdis_pointer.dtsi; do
             [ -f "config/$f" ] && cp "config/$f" "$d/" || true
@@ -137,7 +137,6 @@ jobs:
         declare -A LIST=(
           [bt]="charybdis_left charybdis_right"
           [dongle]="charybdis_left charybdis_right charybdis_dongle"
-          [left_debug]="charybdis_left"
           [reset]="settings_reset"
         )
 
@@ -155,9 +154,7 @@ jobs:
           fi
 
           # studio RPC on the active central: right half for BT, dongle for dongle builds
-          if [[ "$FM" == "left_debug" ]]; then
-            SNIPPET_OPTION="-DSNIPPET=zmk-usb-logging"
-          elif [[ "$FM" == "bt" && "$SH" == *right ]]; then
+          if [[ "$FM" == "bt" && "$SH" == *right ]]; then
             SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
           elif [[ "$FM" == "dongle" && "$SH" == "charybdis_dongle" ]]; then
             SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
