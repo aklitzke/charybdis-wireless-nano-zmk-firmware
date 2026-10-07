@@ -27,13 +27,12 @@
             &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
             &auto_mouse_layer 3 1000
             /*
-             * Deliberate overshoot. Three rounds of tuning zip_scroll_scaler
-             * alone produced no perceptible change, so cut the motion down
-             * before the mapper as well: 16x here times 16x below is ~256x.
-             * If scrolling is STILL fast after this, the chain is not running
-             * and the numbers are irrelevant, which is the thing worth knowing.
+             * This is the scroll speed knob, not the zip_scroll_scaler below.
+             * Scaling the wheel values after the mapper had no perceptible
+             * effect across several attempts; scaling the motion before it
+             * becomes wheel events does. Larger divisor means slower scroll.
              */
-            &zip_xy_scaler 1 16
+            &zip_xy_scaler 1 7
             &zip_xy_to_scroll_mapper
             &zip_scroll_scaler 1 16
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
