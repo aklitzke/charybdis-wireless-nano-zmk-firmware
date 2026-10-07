@@ -63,9 +63,6 @@ jobs:
         combo: ${{ fromJson(needs.setup.outputs.groups) }}
 
     steps:
-    - name: Install tree
-      run: apt-get update && apt-get install -y tree
-
     # ───────── update zmk sub-repo ─────────
     - name: Checkout workflow repo
       uses: actions/checkout@v4
