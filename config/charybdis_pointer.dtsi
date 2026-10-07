@@ -11,22 +11,31 @@
     input-processors = <
         &zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)
         &zip_xy_scaler 3 5
+        &auto_mouse_layer 3 1000
     >;
 };
 
 / {
     /*
-     * Kept for later: this is what drives the "move the ball, jump to a mouse
-     * layer" behaviour, plus trackball-as-arrow-keys. Neither is wired into the
-     * chain above, because the current keymap only defines layers 0-2 and these
-     * referenced layers 1, 3, 4 and 6. Re-point them at real layers and add them
-     * back to input-processors to re-enable.
+     * Moving the trackball turns on the MOUSE layer (3) and it drops 1000ms
+     * after the last motion.
+     *
+     * excluded-positions lists keys that do NOT deactivate the layer:
+     *   5, 7, 8   the mouse buttons themselves, or the first click would
+     *             cancel the layer before it registered
+     *   31, 32    left thumb shift and ctrl, so shift-click and ctrl-click work
+     * Everything else drops the layer the moment you press it, so going back
+     * to typing is immediate.
+     *
+     * require-prior-idle-ms stops the layer arming within 150ms of a keystroke,
+     * so brushing the ball mid-word does not turn J/U/Y into clicks. Raise it
+     * if that still happens, lower it toward 0 if the layer feels sluggish.
      */
     auto_mouse_layer: auto_mouse_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
-        require-prior-idle-ms = <0>;
-        excluded-positions = <30 31 32 33 34 35>;
+        require-prior-idle-ms = <150>;
+        excluded-positions = <5 7 8 31 32>;
     };
 
     caret_input: caret_input {

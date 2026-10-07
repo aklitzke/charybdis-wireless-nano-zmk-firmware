@@ -11,6 +11,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/pointing.h>
 
 &sk {
         release-after-ms = <3000>;
@@ -128,6 +129,24 @@
    &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI     &kp GRAVE        &kp MINUS &kp LBKT  &kp RBKT  &kp DQT  &kp SQT
    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &none        &none            &kp UNDER &kp EQUAL &kp LBRC  &kp RBRC &kp BSLH
                              &trans       &kp LSHFT    &td_ctrl_cmd     &bspc_del &kp SPACE &trans
+                        >;
+                };
+
+                mouse_layer {
+                        display-name = "MOUSE";
+// Reached automatically by moving the trackball; see charybdis_pointer.dtsi.
+// Everything except the three buttons is &trans, so you can keep typing and
+// any non-excluded key drops the layer immediately.
+// -----------------------------------------------------------------------------------------
+// |     |     |     |     |     |   | LCK |     | RCK | MCK |     |
+// |     |     |     |     |     |   |     |     |     |     |     |
+// |     |     |     |     |     |   |     |     |     |     |     |
+//             |     | SFT | CTL |   |     |     |     |
+                        bindings = <
+   &trans &trans &trans &trans &trans   &mkp LCLK &trans &mkp RCLK &mkp MCLK &trans
+   &trans &trans &trans &trans &trans   &trans    &trans &trans    &trans    &trans
+   &trans &trans &trans &trans &trans   &trans    &trans &trans    &trans    &trans
+                 &trans &trans &trans   &trans &trans &trans
                         >;
                 };
         };
