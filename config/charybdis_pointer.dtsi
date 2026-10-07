@@ -21,21 +21,21 @@
      * after the last motion.
      *
      * excluded-positions lists keys that do NOT deactivate the layer:
-     *   5, 7, 8   the mouse buttons themselves, or the first click would
+     *   5, 6, 7   the mouse buttons themselves, or the first click would
      *             cancel the layer before it registered
      *   31, 32    left thumb shift and ctrl, so shift-click and ctrl-click work
      * Everything else drops the layer the moment you press it, so going back
      * to typing is immediate.
      *
      * require-prior-idle-ms stops the layer arming within 150ms of a keystroke,
-     * so brushing the ball mid-word does not turn J/U/Y into clicks. Raise it
+     * so brushing the ball mid-word does not turn J/L/U into clicks. Raise it
      * if that still happens, lower it toward 0 if the layer feels sluggish.
      */
     auto_mouse_layer: auto_mouse_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
         require-prior-idle-ms = <150>;
-        excluded-positions = <5 7 8 31 32>;
+        excluded-positions = <5 6 7 31 32>;
     };
 
     caret_input: caret_input {

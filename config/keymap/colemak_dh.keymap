@@ -138,12 +138,12 @@
 // Everything except the three buttons is &trans, so you can keep typing and
 // any non-excluded key drops the layer immediately.
 // -----------------------------------------------------------------------------------------
-// |     |     |     |     |     |   | LCK |     | RCK | MCK |     |
+// |     |     |     |     |     |   | LCK | RCK | MCK |     |     |
 // |     |     |     |     |     |   |     |     |     |     |     |
 // |     |     |     |     |     |   |     |     |     |     |     |
 //             |     | SFT | CTL |   |     |     |     |
                         bindings = <
-   &trans &trans &trans &trans &trans   &mkp LCLK &trans &mkp RCLK &mkp MCLK &trans
+   &trans &trans &trans &trans &trans   &mkp LCLK &mkp RCLK &mkp MCLK &trans &trans
    &trans &trans &trans &trans &trans   &trans    &trans &trans    &trans    &trans
    &trans &trans &trans &trans &trans   &trans    &trans &trans    &trans    &trans
                  &trans &trans &trans   &trans &trans &trans
